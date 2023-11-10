@@ -1,11 +1,11 @@
-GetCommandLineW PROTO
-lstrlenW PROTO
+GetCommandLineA PROTO
+lstrlen PROTO
 GetStdHandle PROTO
 WriteFile PROTO
 ExitProcess PROTO
 
 .data
-    crlf db 13, 0, 10, 0
+    crlf db 13, 10
 
 .code
  
@@ -14,10 +14,10 @@ ExitProcess PROTO
         mov     rbp, rsp
         sub     rsp, 32
 
-        call    GetCommandLineW
+        call    GetCommandLineA
         mov     qword ptr [rbp], rax
         mov     rcx, rax
-        call    lstrlenW
+        call    lstrlen
         mov     qword ptr [rbp + 8], rax
         mov     rcx, -11
         call    GetStdHandle
@@ -25,20 +25,19 @@ ExitProcess PROTO
         mov     rcx, rax
         mov     rdx, qword ptr [rbp]
         mov     r8, qword ptr [rbp + 8]
-        shl     r8, 1
         xor     r9, r9
-        xor     rax, rax
-        push    rax
+        push    r9
         call    WriteFile
         mov     rcx, rbx
         lea     rdx, crlf
-        mov     r8, 4
+        mov     r8, 2
         xor     r9, r9
         call    WriteFile
         pop     rax
 
         xor     rax, rax
         call    ExitProcess
+
     mainCRTStartup  ENDP
 
 END
