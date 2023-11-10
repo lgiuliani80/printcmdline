@@ -27,7 +27,7 @@ ExitProcess PROTO
         mov     r8, qword ptr [rbp + 8]
         shl     r8, 1
         xor     r9, r9
-        xor     rax,rax
+        xor     rax, rax
         push    rax
         call    WriteFile
         mov     rcx, rbx
