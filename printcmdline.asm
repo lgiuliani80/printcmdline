@@ -10,7 +10,6 @@ ExitProcess PROTO
 .code
  
     mainCRTStartup PROC
-        push    rbp
         mov     rbp, rsp
         sub     rsp, 32
 
