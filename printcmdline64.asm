@@ -1,8 +1,8 @@
 GetCommandLineA PROTO
-lstrlen PROTO
-GetStdHandle PROTO
-WriteFile PROTO
-ExitProcess PROTO
+lstrlen         PROTO lpString:DWORD
+GetStdHandle    PROTO nStdHandle:DWORD
+WriteFile       PROTO hFile:DWORD, lpBuffer:DWORD, nNumberOfBytesToWrite:DWORD, lpNumberOfBytesWritten:DWORD, lpOverlapped:DWORD
+ExitProcess     PROTO nExitCode:DWORD
 
 .data
     crlf db 13, 10
@@ -11,19 +11,19 @@ ExitProcess PROTO
  
     mainCRTStartup PROC
         mov     rbp, rsp
-        sub     rsp, 32
+        sub     rsp, 48
 
         call    GetCommandLineA
-        mov     qword ptr [rbp], rax
+        mov     qword ptr [rbp - 8], rax
         mov     rcx, rax
         call    lstrlen
-        mov     qword ptr [rbp + 8], rax
+        mov     qword ptr [rbp - 16], rax
         mov     rcx, -11
         call    GetStdHandle
         mov     rbx, rax
         mov     rcx, rax
-        mov     rdx, qword ptr [rbp]
-        mov     r8, qword ptr [rbp + 8]
+        mov     rdx, qword ptr [rbp - 8]
+        mov     r8, qword ptr [rbp - 16]
         xor     r9, r9
         push    r9
         call    WriteFile
