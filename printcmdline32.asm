@@ -15,7 +15,7 @@ ExitProcess     PROTO STDCALL, nExitCode:DWORD
 
     mainCRTStartup PROC FAR
         mov     ebp, esp
-        sub     esp, 12
+        sub     esp, 8
 
         call    GetCommandLineA
         mov     dword ptr [ebp - 4], eax
@@ -42,9 +42,10 @@ ExitProcess     PROTO STDCALL, nExitCode:DWORD
         push    ebx
         call    WriteFile
 
-        xor     eax, eax
+        push    esi
         call    ExitProcess
 
+        add     esp, 8
     mainCRTStartup  ENDP
 
 END

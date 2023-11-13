@@ -10,20 +10,17 @@ ExitProcess     PROTO nExitCode:DWORD
 .code
  
     mainCRTStartup PROC
-        mov     rbp, rsp
-        sub     rsp, 48
-
         call    GetCommandLineA
-        mov     qword ptr [rbp - 8], rax
+        mov     r11, rax
         mov     rcx, rax
         call    lstrlen
-        mov     qword ptr [rbp - 16], rax
+        mov     r12, rax
         mov     rcx, -11
         call    GetStdHandle
         mov     rbx, rax
         mov     rcx, rax
-        mov     rdx, qword ptr [rbp - 8]
-        mov     r8, qword ptr [rbp - 16]
+        mov     rdx, r11
+        mov     r8, r12
         xor     r9, r9
         push    r9
         call    WriteFile
@@ -34,7 +31,7 @@ ExitProcess     PROTO nExitCode:DWORD
         call    WriteFile
         pop     rax
 
-        xor     rax, rax
+        xor     rcx, rcx
         call    ExitProcess
 
     mainCRTStartup  ENDP
