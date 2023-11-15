@@ -42,4 +42,18 @@ if not exist "%ProgramFiles(x86)%\Microsoft SDKs\Windows\v7.1A\Lib\Kernel32.Lib"
 )
 
 "%ML64_PATH%" printcmdline64.asm /link "%ProgramFiles(x86)%\Microsoft SDKs\Windows\v7.1A\Lib\x64\Kernel32.Lib" /subsystem:console
+if errorlevel 1 (
+    echo "ml64.exe failed to assemble printcmdline64.asm"
+    exit /b 1
+)
+"%ML64_PATH%" printcmdline64plus.asm /link "%ProgramFiles(x86)%\Microsoft SDKs\Windows\v7.1A\Lib\x64\Kernel32.Lib" "%ProgramFiles(x86)%\Microsoft SDKs\Windows\v7.1A\Lib\x64\User32.Lib" "%ProgramFiles(x86)%\Microsoft SDKs\Windows\v7.1A\Lib\x64\Shell32.Lib" /subsystem:console
+if errorlevel 1 (
+    echo "ml64.exe failed to assemble printcmdline64plus.asm"
+    exit /b 1
+)
+
 "%ML32_PATH%" printcmdline32.asm /link "%ProgramFiles(x86)%\Microsoft SDKs\Windows\v7.1A\Lib\Kernel32.Lib" /subsystem:console
+if errorlevel 1 (
+    echo "ml.exe failed to assemble printcmdline32.asm"
+    exit /b 1
+)

@@ -11,7 +11,7 @@ ExitProcess     PROTO nExitCode:DWORD
  
     mainCRTStartup PROC
         call    GetCommandLineA
-        mov     r11, rax
+        mov     r13, rax
         mov     rcx, rax
         call    lstrlen
         mov     r12, rax
@@ -19,7 +19,7 @@ ExitProcess     PROTO nExitCode:DWORD
         call    GetStdHandle
         mov     rbx, rax
         mov     rcx, rax
-        mov     rdx, r11
+        mov     rdx, r13
         mov     r8, r12
         xor     r9, r9
         push    r9
