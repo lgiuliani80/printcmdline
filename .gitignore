@@ -1,3 +1,5 @@
 *.exe*
 *.lnk
 *.obj
+*.o
+printcmdlinelinux
